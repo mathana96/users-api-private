@@ -8,7 +8,8 @@
   "scripts": {
     "start": "node ./app.js",
     "seed": "node ./seed/seed.js",
-    "test": "./node_modules/mocha/bin/mocha ./tests/accept/*.js --timeout 15000"
+    "test": "docker rm -f usersDB; docker run -d -p 127.0.0.1:27017:27017 --name usersDB mongo && node ./seed/seed.js && ./node_modules/mocha/bin/mocha ./tests/accept/*.js --timeout 15000",
+    "dev": "docker rm -f usersDB; docker run -d -p 127.0.0.1:27017:27017 --name usersDB mongo && node ./seed/seed.js && node ./app.js"
   },
   "dependencies": {
     "cors": "^2.7.1",
