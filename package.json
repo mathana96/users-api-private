@@ -9,9 +9,10 @@
     "start": "node ./app.js",
     "seed": "node ./seed/seed.js",
     "test": "docker rm -f usersDB; docker run -d -p 127.0.0.1:27017:27017 --name usersDB mongo && node ./seed/seed.js && ./node_modules/mocha/bin/mocha ./tests/accept/*.js --timeout 15000",
-    "dev": "docker rm -f usersDB; docker run -d -p 127.0.0.1:27017:27017 --name usersDB mongo && node ./seed/seed.js && node ./app.js"
+    "dev": "eslint --fix *.js;docker rm -f usersDB; docker run -d -p 127.0.0.1:27017:27017 --name usersDB mongo && node ./seed/seed.js && node ./app.js"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "cors": "^2.7.1",
     "ejs": "^2.5.1",
     "express": "^4.14.0",
