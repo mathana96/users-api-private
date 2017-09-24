@@ -87,35 +87,41 @@ describe('Users', function() {
           expect(res.body.name).to.have.property('title');
           expect(res.body.name).to.have.property('first');
           expect(res.body.name).to.have.property('last');
-          expect(res.body).to.not.have.property('unknown');
+          expect(res.body).to.not.have.property('unknown');    // Bogus property
           done();
         });
     });
   });
 
-  // // Test the /POST route for creating a single user
-  // describe('/POST users', function() {
-  //   it('should create a single user', function(done) {
-  //     // Create a user test-case
-  //     var newUser = {
-  //       "gender": "test-gender",
-  //       "name": {
-  //         "title": "test-title",
-  //         "first": "test-first-name",
-  //         "last": "test-last-name"
-  //       },
-  //     };
-  //     chai.request(url)
-  //       .post('/users')
-  //       .send(newUser)
-  //       .end(function(err, res) {
-  //         res.should.have.status(200);
-  //         expect(res.body).to.be.a('object');
-  //         expect(res.body.name.first).to.be.a('string');
-  //         expect(res.body.name.first).to.equal('test-first-name');
-  //         done();
-  //       });
-  //   });
-  // });
+  // Test the /PUT route for creating a single user
+  describe('/PUT users/:id', function() {
+    it('should update a single user', function(done) {
+      // Get a user from users
+      chai.request(url)
+        .get('/users')
+        .end(function(err, res) {
+          // Update the user retrieved 
+          chai.request(url)
+            .put('/users/' + res.body[0]._id)
+            // Properties to be updated
+            .send({
+              "gender": "updated-gender",
+              "name": {
+                "title": "updated-title",
+                "first": "updated-first-name",
+                "last": "test-last-name"
+              }
+            })
+            .end(function(err, res) {
+              res.should.have.status(200);
+              expect(res.body).to.be.a('object');
+              expect(res.body.gender).to.equal('updated-gender');
+              expect(res.body.name.first).to.equal('updated-first-name');
+              done();
+            });
+        });
+    });
+
+  });
 
 });
