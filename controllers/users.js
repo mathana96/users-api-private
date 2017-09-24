@@ -15,6 +15,10 @@ router.route('/')
       });
     }
 
+    if (!users) {
+      return res.status(404).end();
+    }
+
     res.json(users);
   });
 })
@@ -59,7 +63,8 @@ router.route('/:id')
     res.json(user);
   });
 })
-
+// PUT /users/:id
+// Update a user by ID
 .put(function(req, res) {
   User.findOneAndUpdate({
     _id: req.params.id
@@ -75,12 +80,30 @@ router.route('/:id')
     }
 
     res.json(user);
-
   });
+})
+// DELETE /users/:id
+// Delete a user by ID
+.delete(function(req, res) {
+    User.remove({
+      _id: req.params.id
+    }, function(err, user) {
+    if (err) {
+      return res.status(500).json({
+        error: "Error reading user: " + err
+      });
+    }
+
+    if (!user) {
+      return res.status(404).end();
+    }
+
+    res.json({ 
+      message: "User successfully deleted"
+    });
+  })
 
 });
 
-
-// Task.findOneAndUpdate({_id: req.params.taskId}, req.body, {new: true}, function(err, task)
 
 module.exports = router;
