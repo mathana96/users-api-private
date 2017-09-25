@@ -10,13 +10,13 @@ router.route('/')
 .get(function(req, res) {
   User.find({}, function(err, users) {
     if (err) {
-      return res.status(500).json({
+      return res.status(500).json({   // Status code 500: Internal Server Error
         error: "Error listing users: " + err
       });
     }
 
     if (!users) {
-      return res.status(404).end();
+      return res.status(404).end();    // Status code 404: Not Found
     }
 
     res.json(users);
@@ -71,7 +71,7 @@ router.route('/:id')
   }, req.body, {new: true}, function(err, user) {
     if (err) {
       return res.status(500).json({
-        error: "Error reading user: " + err
+        error: "Error updating user: " + err
       });
     }
 
@@ -90,7 +90,7 @@ router.route('/:id')
     }, function(err, user) {
     if (err) {
       return res.status(500).json({
-        error: "Error reading user: " + err
+        error: "Error deleting user: " + err
       });
     }
 

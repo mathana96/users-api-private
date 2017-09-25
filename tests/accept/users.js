@@ -27,6 +27,7 @@ describe('Users', function() {
     });
   });
 
+  // Test for /GET route for list of users
   describe('/GET users', function() {
     it('should return a list of users', function(done) {
       chai.request(url)
@@ -40,6 +41,7 @@ describe('Users', function() {
     });
   });
 
+  // Test the /GET route for getting a single user
   describe('/GET users/:id', function() {
     it('should return a single user', function(done) {
       // Find a user in the DB
@@ -58,4 +60,62 @@ describe('Users', function() {
       });
     });
   });
+
+
+  // Test the /POST route for creating a single user
+  describe('/POST users', function() {
+    it('should create a single user', function(done) {
+      // Create a user test-case
+      var newUser = {
+        "gender": "test-gender",
+        "name": {
+          "title": "test-title",
+          "first": "test-first-name",
+          "last": "test-last-name"
+        },
+      };
+      chai.request(url)
+        .post('/users')
+        .send(newUser)
+        .end(function(err, res) {
+          res.should.have.status(200);
+          expect(res.body).to.be.a('object');
+          expect(res.body.name.first).to.be.a('string');
+          expect(res.body.name.first).to.equal('test-first-name');
+          expect(res.body).to.have.property('gender');
+          expect(res.body).to.have.property('name');
+          expect(res.body.name).to.have.property('title');
+          expect(res.body.name).to.have.property('first');
+          expect(res.body.name).to.have.property('last');
+          expect(res.body).to.not.have.property('unknown');
+          done();
+        });
+    });
+  });
+
+  // // Test the /POST route for creating a single user
+  // describe('/POST users', function() {
+  //   it('should create a single user', function(done) {
+  //     // Create a user test-case
+  //     var newUser = {
+  //       "gender": "test-gender",
+  //       "name": {
+  //         "title": "test-title",
+  //         "first": "test-first-name",
+  //         "last": "test-last-name"
+  //       },
+  //     };
+  //     chai.request(url)
+  //       .post('/users')
+  //       .send(newUser)
+  //       .end(function(err, res) {
+  //         res.should.have.status(200);
+  //         expect(res.body).to.be.a('object');
+  //         expect(res.body.name.first).to.be.a('string');
+  //         expect(res.body.name.first).to.equal('test-first-name');
+  //         done();
+  //       });
+  //   });
+  // });
+
 });
