@@ -1,3 +1,4 @@
 .sonar
 node_modules
 *.log
+.scannerwork/
