@@ -124,4 +124,26 @@ describe('Users', function() {
 
   });
 
+  // Test the /DELETE route for creating a single user
+  describe('/DELETE users/:id', function() {
+    it('should delete a single user', function(done) {
+      // Get a user from users
+      chai.request(url)
+        .get('/users')
+        .end(function(err, res) {
+          // Delete the particular 
+          chai.request(url)
+            .delete('/users/' + res.body[0]._id)
+            .end(function(err, res) {
+              res.should.have.status(200);
+              expect(res.body).to.be.a('object');
+              expect(res.body).to.have.property('message');
+              expect(res.body.message).to.equal('User successfully deleted');
+              done();
+            });
+        });
+    });
+
+  });
+
 });
