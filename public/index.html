@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fancy user app</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.10.2/semantic.css">
+    <link type="text/css" rel="stylesheet" href="../../../public/stylesheets/main.css" media="screen"/>
+    <script src="http://code.jq	uery.com/jquery-2.1.1.min.js"></script> 
+		<link href='https://fonts.googleapis.com/css?family=Dosis:600' rel='stylesheet' type='text/css'>  </head>    
+  <body class="ui container segment">
+
+  <nav class="ui inverted green menu">
+	<h2 class="ui inverted header">
+		<img src="/public/images/spacebook-logo.png"
+			class="ui mini center alligned image"> RESTful API
+		</header>
+</nav>
+
+<div class="ui two column stackable grid">
+	<div class="column">
+		<section
+			class="ui form raised black segment" id="login">
+			<h1 class="ui center aligned header">Login</h1>
+				<form action="/authenticate" method="POST">
+					<div class="field">
+						<label> Username: </label> <input type="text" name="email">
+					</div>
+					<div class="field">
+						<label> Password: </label> <input type="password" name="password">
+					</div>
+					<button class="ui green submit button">Login</button>
+				</form>
+		</section>
+	</div>	
+	<div class="column">
+		<section
+			class="ui form raised black segment">
+			<h1 class="ui center aligned header">Sign up</h1>
+			<div class="column">
+				<form action="/register" method="POST">
+					<div class="two fields">
+						<div class="field">
+							<label>First Name</label> <input placeholder="First Name"
+								type="text" name="firstName">
+						</div>
+						<div class="field">
+							<label>Last Name</label> <input placeholder="Last Name"
+								type="text" name="lastName">
+						</div>
+					</div>
+					<h4 class="ui dividing header">Shipping Information</h4>
+					<div class=" fields">
+						<div class="field">
+							<label>Nationality</label> <input placeholder="Nationality"
+								type="text" name="nationality">
+						</div>
+						<div class="field">
+							<label>Age</label> <input placeholder="Age" type="text"
+								name="age">
+						</div>
+					</div>
+					<div class="field">
+						<label>Email</label> <input placeholder="Email" type="text"
+							name="email">
+					</div>
+					<div class="field">
+						<label>Username</label> <input placeholder="Username" type="text"
+							name="username">
+					</div>
+					<div class="field">
+						<label>Password</label> <input type="password" name="password">
+					</div>
+					<button class="ui green submit button">Submit</button>
+				</form>
+			</div>
+		</section>
+	</div>
+</div>
+  </body>
+</html>

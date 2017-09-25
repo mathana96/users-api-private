@@ -2,7 +2,6 @@ var User = require('../models/user');
 var express = require('express');
 var router = express.Router();
 
-
 // Routes that end with /
 router.route('/')
 // GET /users
@@ -23,7 +22,7 @@ router.route('/')
   });
 })
 // POST /users
-// Create a new user
+  // Create a new user
 .post(function(req, res) {
   var newUser = new User(req.body);
   newUser.save(function(err, user) {
@@ -42,7 +41,7 @@ router.route('/')
 });
 
 
-// Routes that end with /:id
+// Routes that end with /:id  
 router.route('/:id')
 // GET /users/:id
 // Get a user by ID

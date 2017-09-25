@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.get('/', function(req, res, err) { // eslint-disable-line no-unused-vars
+app.get('/docs', function(req, res, err) { // eslint-disable-line no-unused-vars
   var md = function(filename) {
     var path = __dirname + "/" + filename;
     var include = fs.readFileSync(path, 'utf8');
@@ -36,7 +36,6 @@ app.get('/', function(req, res, err) { // eslint-disable-line no-unused-vars
 
 // See the User Controller for `/users` routes
 app.use('/users', userController);
-
 
 
 // Some switches for acceptance tests
