@@ -1,6 +1,20 @@
 var User = require('../models/user');
 var express = require('express');
 var router = express.Router();
+var check = require('express-validator/check').check;
+var validationResult = require('express-validator/check').validationResult;
+
+function stringsValidators(strings) {
+  return strings.map(function(str) {
+    return check(str).exists().trim().isLength({ min: 1 });
+  });
+}
+
+function existTypeValidators(items) {
+  return items.map(function(i) {
+    return check(i).exists();
+  });
+}
 
 // Routes that end with /
 router.route('/')
@@ -21,24 +35,35 @@ router.route('/')
     res.json(users);
   });
 })
+
 // POST /users
   // Create a new user
-.post(function(req, res) {
-  var newUser = new User(req.body);
-  newUser.save(function(err, user) {
-    if (err) {
-      return res.status(500).json({
-        error: "Error creating user: " + err
-      });
+.post(
+  stringsValidators(['gender','email','username','password','salt','md5','sha1','sha256','phone','cell','PPS'])
+  .concat(existTypeValidators(['name','location','picture']))
+  .concat(existTypeValidators(['registered','dob']))
+  , function(req, res) {
+    var newUser = new User(req.body);
+    var errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.mapped() });
     }
 
-    if (!user) {
-      return res.status(404).end();
-    }
+    newUser.save(function(err, user) {
+      console.log(err);
+      if (err) {
+        return res.status(500).json({
+          error: "Error creating user: " + err
+        });
+      }
 
-    res.json(user);
+      if (!user) {
+        return res.status(404).end();
+      }
+
+      res.json(user);
+    });
   });
-});
 
 
 // Routes that end with /:id  
