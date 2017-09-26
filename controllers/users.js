@@ -42,6 +42,7 @@ router.route('/')
       return res.status(422).json({ errors: errors.mapped() });
     }
 
+    if (newUser.username && newUser.password)
     newUser.save(function(err, user) {
       console.log(err);
       if (err) {
@@ -85,7 +86,7 @@ router.route('/:id')
 .put(function(req, res) {
   User.findOneAndUpdate({
     _id: req.params.id
-  }, req.body, {new: true}, function(err, user) {
+  }, req.body, { new: true, runValidators: true, context: 'query' }, function(err, user) {
     if (err) {
       return res.status(500).json({
         error: "Error updating user: " + err

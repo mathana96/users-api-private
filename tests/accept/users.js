@@ -80,8 +80,8 @@ describe('Users', function() {
           "zip": 14086
         },
         "email": "hi@email.com",
-        "username": "bluepeacock968",
-        "password": "bighead",
+        "username": "uniqueUsername",
+        "password": "uniquePassword",
       };
       chai.request(url)
         .post('/users')
