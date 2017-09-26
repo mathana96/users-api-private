@@ -67,12 +67,21 @@ describe('Users', function() {
     it('should create a single user', function(done) {
       // Create a user test-case
       var newUser = {
-        "gender": "test-gender",
+        "gender": "male",
         "name": {
-          "title": "test-title",
+          "title": "mr",
           "first": "test-first-name",
-          "last": "test-last-name"
+          "last": "reed"
         },
+        "location": {
+          "street": "6819 south street",
+          "city": "Passage West",
+          "state": "massachusetts",
+          "zip": 14086
+        },
+        "email": "hi@email.com",
+        "username": "bluepeacock968",
+        "password": "bighead",
       };
       chai.request(url)
         .post('/users')

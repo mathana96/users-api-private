@@ -10,12 +10,6 @@ function stringsValidators(strings) {
   });
 }
 
-function existTypeValidators(items) {
-  return items.map(function(i) {
-    return check(i).exists();
-  });
-}
-
 // Routes that end with /
 router.route('/')
 // GET /users
@@ -37,11 +31,10 @@ router.route('/')
 })
 
 // POST /users
-  // Create a new user
+// Create a new user
 .post(
-  stringsValidators(['gender','email','username','password','salt','md5','sha1','sha256','phone','cell','PPS'])
-  .concat(existTypeValidators(['name','location','picture']))
-  .concat(existTypeValidators(['registered','dob']))
+  stringsValidators(['gender','name.*','username','password','location.*'])
+  .concat(check('email').isEmail().withMessage('must be an email'))
   , function(req, res) {
     var newUser = new User(req.body);
     var errors = validationResult(req);
