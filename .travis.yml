@@ -1,16 +1,19 @@
 sudo: required
 language: node_js
-
 services:
-  - docker
+- docker
 node_js:
-  - "6.10.0"
-# " && node ./seed/seed.js && ./node_modules/mocha/bin/mocha ./tests/accept/*.js --timeout 15000"
+- 6.10.0
 before_install:
-  - docker pull mongo
-  - docker run -d -p 127.0.0.1:27017:27017 mongo
-  - docker ps -a
+- docker pull mongo
+- docker run -d -p 127.0.0.1:27017:27017 mongo
+- docker ps -a
 install:
-  - npm install
+- npm install
 before_script:
-  - npm run seed
+- npm run seed
+deploy:
+  provider: heroku
+  api_key:
+    secure: Ia1r6d6ZfjCB0dv+5ebfiqBj5sj2K3m92i/nbl8IC24LFHelq1vHS+sQxINF1dX5xoAdXD+vlwXd8wcHh9roYe8jWcAfH0BxVXJO6WHdAnECpmmf0zvyvKf0BJ/ddwRbIy0Zg9rJLXGg0sc0bV+BiRtudMWf/E9evAhphvXkwkqY8XMHihBZYqNDN3TlBnCn3YKZ03vpOUkCdt44rqc5fqUs4x6SJ2GLTXZUIe9UzgJU68zJOD9ehiG+AgdOuvqHKGmy2vxIJPiGemLrU/lfhgQDtocoSXieW2+U42x1e5us9/IoJOCR7ojJ9vRmsK7/NtUiJd5ZdSaorIsem8+emNH4ZEMo8tJQN2sO0bU/WbBZfCL+1g0oIZCm4jmn0A/U8+iPKo+AW2cWmpGmsq64sseyrzcIf6t2SMM5Qhg7NkzHJ91mexrGOhzbzKIGCbNrSSBb9UY/CkaXuoqoGOIreFFIGlughg4tj7HLJFjJzrud28J6XyjB0nA3c9UNB9NKvUdtn8n+qk0zJajSZqVs9NL43FIePneGedvDRMk7UQwQnV3e5RTcVzCShxTR2+8nro2y5WbAObp2feFnycH51phjXBgtuU41yy9kjzD6F5psGryT1Dhcv6SaZDscqbmPZhE0O2nS8VrYAgH27t06uVhzhuR3NwhlM/eL/M3gojI=
+  app: usersapi-private

@@ -2,3 +2,5 @@
 node_modules
 *.log
 .scannerwork/
+heroku-deploy.sh
+heroku-delete.sh

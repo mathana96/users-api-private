@@ -11,6 +11,8 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
+app.set('port', (process.env.PORT || 8000));
+
 // Add middleware
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -42,11 +44,17 @@ app.use('/users', userController);
 if (require.main === module) {
   // Only connect to MongoDB if app.js is run
   // If require'd (e.g. in tests), let these tests establish a DB connection themselves
-  mongoose.connect('mongodb://localhost/users');
+
+  if (process.env.DBUSER && process.env.DBPASSWORD) {
+    console.log('MLAB !!!!!');
+    mongoose.connect('mongodb://' + process.env.DBUSER + ':' + process.env.DBPASSWORD + '@ds151544.mlab.com:51544/usersapi');
+  } else {
+    mongoose.connect('mongodb://localhost/users');
+  }
 
   // Only listen when app.js is run - acceptance tests will listen on another port
-  app.listen(8000, function() {
-    logger.info('Listening at http://localhost:8000 - see here for API docs');
+  app.listen(app.get('port'), function() {
+    logger.info('Node app is running at', app.get('port'));
   });
 }
 
