@@ -31,7 +31,7 @@ describe('Users', function() {
   describe('/GET users', function() {
     it('should return a list of users', function(done) {
       chai.request(url)
-        .get('/users')
+        .get('/testUsers')
         .end(function(err, res) {
           res.body.should.be.a('array');
           res.should.have.status(200);
@@ -50,7 +50,7 @@ describe('Users', function() {
 
         // Read this user by id
         chai.request(url)
-          .get('/users/' + id)
+          .get('/testUsers/' + id)
           .end(function(err, res) {
             res.should.have.status(200);
             expect(res.body).to.be.a('object');
@@ -84,7 +84,7 @@ describe('Users', function() {
         "password": "uniquePassword",
       };
       chai.request(url)
-        .post('/users')
+        .post('/testUsers')
         .send(newUser)
         .end(function(err, res) {
           res.should.have.status(200);
@@ -107,11 +107,11 @@ describe('Users', function() {
     it('should update a single user', function(done) {
       // Get a user from users
       chai.request(url)
-        .get('/users')
+        .get('/testUsers')
         .end(function(err, res) {
           // Update the user retrieved 
           chai.request(url)
-            .put('/users/' + res.body[0]._id)
+            .put('/testUsers/' + res.body[0]._id)
             // Properties to be updated
             .send({
               "gender": "updated-gender",
@@ -138,16 +138,14 @@ describe('Users', function() {
     it('should delete a single user', function(done) {
       // Get a user from users
       chai.request(url)
-        .get('/users')
+        .get('/testUsers')
         .end(function(err, res) {
           // Delete the particular 
           chai.request(url)
-            .delete('/users/' + res.body[0]._id)
+            .delete('/testUsers/' + res.body[0]._id)
             .end(function(err, res) {
               res.should.have.status(200);
               expect(res.body).to.be.a('object');
-              expect(res.body).to.have.property('message');
-              expect(res.body.message).to.equal('User successfully deleted');
               done();
             });
         });

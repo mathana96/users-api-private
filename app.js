@@ -7,6 +7,7 @@ var marked = require('marked');
 var fs = require('fs');
 var logger = require('winston');
 var userController = require('./controllers/users');
+var testUserController = require('./controllers/testUsers');
 var bodyParser = require('body-parser');
 
 var app = express();
@@ -22,6 +23,11 @@ app.use(bodyParser.json());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
+app.get('/', function(req, res, err) { // eslint-disable-line no-unused-vars
+  return res.render('pages/index');
+});
+
 app.get('/docs', function(req, res, err) { // eslint-disable-line no-unused-vars
   var md = function(filename) {
     var path = __dirname + "/" + filename;
@@ -31,13 +37,14 @@ app.get('/docs', function(req, res, err) { // eslint-disable-line no-unused-vars
     return html;
   };
 
-  return res.render('index.ejs', {
+  return res.render('pages/api', {
     "md": md
   });
 });
 
 // See the User Controller for `/users` routes
 app.use('/users', userController);
+app.use('/testUsers', testUserController);
 
 
 // Some switches for acceptance tests
