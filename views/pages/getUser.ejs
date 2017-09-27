@@ -1,0 +1,84 @@
+<% include ../partials/header %>
+<div class="ui two column grid">
+  <div class="ui four wide column">
+    <div class="ui card">
+      <div class="image">
+        <img src="<%= user.picture.large %>">
+      </div>
+      <div class="content">
+        <a href="/users/<%= user._id %>" class="header"><%= user.name.title %> <%= user.name.first %>  <%= user.name.last %></a>
+        <div class="meta">
+          <span class="date"><%= user.email %></span>
+        </div>
+        <div class="meta">
+          <span class="date"><%= user.username %></span>
+        </div>
+        <div class="description">
+          <%= user.location.street %>, 
+          <%= user.location.city %>, 
+          <%= user.location.state %>, 
+          <%= user.location.zip %>
+        </div>
+      </div>
+    </div>
+
+    <form action="/users/<%= user._id %>" method="POST">
+      <button class="big ui red button">Delete</button>
+    </form>
+
+
+  </div>
+  <div class="ui twelve wide column">
+    <section
+    class="ui form raised black segment">
+    <h1 class="ui center aligned header">Update</h1>
+    <div class="column">
+      <form action="/users/<%= user._id %>" method="POST">
+        <h4 class="ui dividing header">Name</h4>
+        <div class="three fields">
+          <div class="field">
+            <label>Title</label> <input type="text" name="title"value="<%= user.name.title %>">
+          </div>
+          <div class="field">
+            <label>First</label> <input type="text" name="first"value="<%= user.name.first %>">
+          </div>
+          <div class="field">
+            <label>Last</label> <input 
+            type="text" name="last"value="<%= user.name.last %>">
+          </div>
+        </div>
+        <h4 class="ui dividing header">Location</h4>
+        <div class="four fields">
+          <div class="field">
+            <label>Street</label> <input 
+            type="text" name="street"value="<%= user.location.street %>">
+          </div>
+          <div class="field">
+            <label>City</label> <input  type="text"
+            name="city"value="<%= user.location.city %>">
+          </div>
+          <div class="field">
+            <label>State</label> <input type="text"
+            name="state"value="<%= user.location.state %>">
+          </div>
+          <div class="field">
+            <label>Zip</label> <input type="text"
+            name="zip"value="<%= user.location.zip %>">
+          </div>
+        </div>
+        <div class="field">
+          <label>Email</label> <input type="text"
+          name="email"value="<%= user.email %>">
+        </div>
+        <div class="field">
+          <label>Username</label> <input type="text"
+          name="username"value="<%= user.username %>">
+        </div>
+        <div class="field">
+          <label>Password</label> <input type="password" name="password" value="<%= user.password %>">
+        </div>
+        <button class="ui blue submit button">Submit</button>
+      </form>
+    </div>
+  </section>
+</div>

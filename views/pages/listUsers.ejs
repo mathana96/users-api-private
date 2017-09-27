@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+
+<div class="ui five stackable cards">
+
+  <% users.forEach(function(user) { %>
+  <div class="ui card">
+    <div class="image">
+      <img src="<%= user.picture.large %>">
+    </div>
+    <div class="content">
+      <a href="/users/<%= user._id %>" class="header"><%= user.name.title %> <%= user.name.first %>  <%= user.name.last %></a>
+      <div class="meta">
+        <span class="date"><%= user.email %></span>
+      </div>
+      <div class="meta">
+        <span class="date"><%= user.username %></span>
+      </div>
+      <div class="description">
+        <%= user.location.street %>, 
+        <%= user.location.city %>, 
+        <%= user.location.state %>, 
+        <%= user.location.zip %>
+      </div>
+    </div>
+  </div>
+
+
+  <% }); %>
+</div>
