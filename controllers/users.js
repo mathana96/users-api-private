@@ -1,5 +1,6 @@
 var User = require('../models/user');
 var express = require('express');
+var ejs = require('ejs');
 var router = express.Router();
 var check = require('express-validator/check').check;
 var validationResult = require('express-validator/check').validationResult;
@@ -26,10 +27,9 @@ router.route('/')
       return res.status(404).end();    // Status code 404: Not Found
     }
 
-    res.json(users);
+    res.render('pages/listUsers', { users: users })
   });
 })
-
 // POST /users
 // Create a new user
 .post(
@@ -78,12 +78,13 @@ router.route('/:id')
       return res.status(404).end();
     }
 
-    res.json(user);
+    res.render('pages/getUser', { user: user });
+
   });
 })
 // PUT /users/:id
 // Update a user by ID
-.put(function(req, res) {
+.post(function(req, res) {
   User.findOneAndUpdate({
     _id: req.params.id
   }, req.body, { new: true, runValidators: true, context: 'query' }, function(err, user) {
@@ -97,7 +98,7 @@ router.route('/:id')
       return res.status(404).end();
     }
 
-    res.json(user);
+    res.render('pages/index');
   });
 })
 // DELETE /users/:id
@@ -116,9 +117,7 @@ router.route('/:id')
       return res.status(404).end();
     }
 
-    res.json({ 
-      message: "User successfully deleted"
-    });
+    res.render('pages/index');
   })
 
 });
