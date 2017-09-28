@@ -1,6 +1,6 @@
-## API Documentation
+## RESTful Users API Documentation
 
-This sample project will give you a small RESTful API to build your template against. It is built using JavaScript/Node.js (our language of choice), ExpressJS (a small, lightweight web MVC framework) & Mongoose (a MongoDB object modelling library).
+Below are the basic CRUDL functionalities of the RESTful API.
 
 **List Users**
 ----
@@ -8,7 +8,7 @@ Returns a list of Users
 
 * **URL**
 
-  `/users`
+  `/testUsers`
 
 * **Method:**
 
@@ -91,7 +91,6 @@ Returns a list of Users
         "medium": "https://randomuser.me/api/portraits/med/women/69.jpg",
         "thumbnail": "https://randomuser.me/api/portraits/thumb/women/69.jpg"
       },
-      "__v": 0
     }]
     ```
 
@@ -108,7 +107,7 @@ Returns a list of Users
 
   ```javascript
   $.ajax({
-    url: "/users",
+    url: "/testUsers",
     dataType: "json",
     type : "GET",
     success : function(r) {
@@ -124,7 +123,7 @@ Returns a list of Users
 
 * **URL**
 
-  `/users/:id`
+  `/testUsers/:id`
 
 * **Method:**
 
@@ -177,7 +176,6 @@ Returns a list of Users
         "medium": "https://randomuser.me/api/portraits/med/women/20.jpg",
         "thumbnail": "https://randomuser.me/api/portraits/thumb/women/20.jpg"
       },
-      "__v": 0
     }
     ```
 
@@ -194,9 +192,231 @@ Returns a list of Users
 
   ```javascript
   $.ajax({
-    url: "/users/1",
+    url: "/testUsers/1",
     dataType: "json",
     type : "GET",
+    success : function(r) {
+      console.log(r);
+    }
+  });
+  ```
+**Add User**
+----
+  Adds or creates a user.
+
+* **URL**
+
+  `/testUsers`
+
+* **Method:**
+
+  `POST`
+
+*  **URL Params**
+
+  None
+
+* **Data Params**
+
+ ```javascript
+    {
+      "gender": "female",
+      "name": {
+        "title": "ms",
+        "first": "olivia",
+        "last": "young"
+      },
+      "location": {
+        "street": "1119 grove road",
+        "city": "Mountmellick",
+        "state": "rhode island",
+        "zip": 88061
+      },
+      "email": "olivia.young@example.com",
+      "username": "crazykoala938",
+      "password": "malibu",
+    }
+  ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```javascript
+    {
+      "_id": "57b330de848a005e48f5de94",
+      "gender": "female",
+      "name": {
+        "title": "ms",
+        "first": "olivia",
+        "last": "young"
+      },
+      "location": {
+        "street": "1119 grove road",
+        "city": "Mountmellick",
+        "state": "rhode island",
+        "zip": 88061
+      },
+      "email": "olivia.young@example.com",
+      "username": "crazykoala938",
+      "password": "malibu",
+    }
+    ```
+
+* **Error Response:**
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:**
+
+    ```javascript
+    { "error": "Error creating user" }
+    ```
+
+* **Sample Call:**
+
+  ```javascript
+  $.ajax({
+    url: "/testUsers",
+    dataType: "json",
+    type : "POST",
+    success : function(r) {
+      console.log(r);
+    }
+  });
+  ```
+
+**Update User**
+----
+  Updates user details.
+
+* **URL**
+
+  `/testUser/:id`
+
+* **Method:**
+
+  `PUT`
+
+*  **URL Params**
+
+   `id=[string]`
+
+* **Data Params**
+
+ ```javascript
+    {
+      "gender": "female",
+      "name": {
+        "title": "ms",
+        "first": "olivia",
+        "last": "young"
+      },
+      "location": {
+        "street": "1119 grove road",
+        "city": "Mountmellick",
+        "state": "rhode island",
+        "zip": 88061
+      },
+      "email": "olivia.young@example.com",
+      "username": "crazykoala938",
+      "password": "malibu",
+    }
+  ```
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```javascript
+    {
+      "_id": "57b330de848a005e48f5de94",
+      "gender": "female",
+      "name": {
+        "title": "ms",
+        "first": "olivia",
+        "last": "young"
+      },
+      "location": {
+        "street": "1119 grove road",
+        "city": "Mountmellick",
+        "state": "rhode island",
+        "zip": 88061
+      },
+      "email": "olivia.young@example.com",
+      "username": "crazykoala938",
+      "password": "malibu",
+    }
+    ```
+
+* **Error Response:**
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:**
+
+    ```javascript
+    { "error": "Error updating user" }
+    ```
+
+* **Sample Call:**
+
+  ```javascript
+  $.ajax({
+    url: "/testUsers",
+    dataType: "json",
+    type : "PUT",
+    success : function(r) {
+      console.log(r);
+    }
+  });
+  ```
+
+**Delete User**
+----
+  Delete users details.
+
+* **URL**
+
+  `/testUser/:id`
+
+* **Method:**
+
+  `DELETE`
+
+*  **URL Params**
+
+   `id=[string]`
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+
+    ```javascript
+    { "message" : "User successfully deleted" }
+    ```
+
+* **Error Response:**
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:**
+
+    ```javascript
+    { "error": "Error deleting user" }
+    ```
+
+* **Sample Call:**
+
+  ```javascript
+  $.ajax({
+    url: "/testUsers",
+    dataType: "json",
+    type : "DELETE",
     success : function(r) {
       console.log(r);
     }
