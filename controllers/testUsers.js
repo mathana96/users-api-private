@@ -1,3 +1,8 @@
+/**
+Controller used only for testing purposes. Seperate file as a quick (and messy) fix to over come having res.json() and res.render()
+for the same path. 
+**/
+
 var User = require('../models/user');
 var express = require('express');
 var ejs = require('ejs');
@@ -5,6 +10,7 @@ var router = express.Router();
 var check = require('express-validator/check').check;
 var validationResult = require('express-validator/check').validationResult;
 
+// Utility function for string validation
 function stringsValidators(strings) {
   return strings.map(function(str) {
     return check(str).exists().trim().isLength({ min: 1 });
@@ -33,7 +39,7 @@ router.route('/')
 // POST /testUsers
 // Create a new user
 .post(
-  stringsValidators(['gender','name.*','username','password','location.*'])
+  stringsValidators(['gender','name.*','username','password','location.*']) // Must be a string and exist
   .concat(check('email').isEmail().withMessage('must be an email'))
   , function(req, res) {
     var newUser = new User(req.body);
@@ -86,7 +92,7 @@ router.route('/:id')
 .put(function(req, res) {
   User.findOneAndUpdate({
     _id: req.params.id
-  }, req.body, { new: true, runValidators: true, context: 'query' }, function(err, user) {
+  }, req.body, { new: true, runValidators: true, context: 'query' }, function(err, user) { 
     if (err) {
       return res.status(500).json({
         error: "Error updating user: " + err
