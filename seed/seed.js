@@ -8,13 +8,13 @@ var seeder = require('mongoose-seed');
 var logger = require('winston');
 
 var seed = function(cb) {
-  var url = "";
+  var url = 'mongodb://';
   if (process.env.DBUSER && process.env.DBPASSWORD) {
     logger.info('SEEDER USING MLAB');
-    url = 'mongodb://' + process.env.DBUSER + ':' + process.env.DBPASSWORD + '@ds151544.mlab.com:51544/usersapi'; // For Heroku
+    url += process.env.DBUSER + ':' + process.env.DBPASSWORD + '@ds151544.mlab.com:51544/usersapi'; // For Heroku
   } else {
     logger.info('SEEDER USING LOCAL MONGO');
-    url = 'mongodb://localhost/users'; // For running locally
+    url += 'localhost/users'; // For running locally
   }
   seeder.connect(url, function() {
 
@@ -33,7 +33,7 @@ var seed = function(cb) {
           if (require.main === module) {
             return process.exit(1);
           } else {
-            return cb(err);
+            return cb();
           }
         }
 

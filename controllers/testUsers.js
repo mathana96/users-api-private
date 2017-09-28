@@ -50,7 +50,6 @@ router.route('/')
 
     if (newUser.username && newUser.password)
     newUser.save(function(err, user) {
-      console.log(err);
       if (err) {
         return res.status(500).json({
           error: "Error creating user: " + err

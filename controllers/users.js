@@ -45,7 +45,6 @@ router.route('/')
 
     if (newUser.username && newUser.password)
     newUser.save(function(err, user) {
-      console.log(err);
       if (err) {
         return res.status(500).json({
           error: "Error creating user: " + err
@@ -85,7 +84,7 @@ router.route('/:id')
 })
 // PUT /users/:id
 // Update a user by ID
-.post(function(req, res) {
+.put(function(req, res) {
   User.findOneAndUpdate({
     _id: req.params.id
   }, req.body, { new: true, runValidators: true, context: 'query' }, function(err, user) {
