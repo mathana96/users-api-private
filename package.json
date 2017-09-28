@@ -6,11 +6,13 @@
   "author": "Red Hat",
   "license": "MIT",
   "scripts": {
+    "clean-docker": "docker volume rm $(docker volume ls -f dangling=true -q) && docker rm -f usersDB",
+    "init-docker-mongo": "docker run -d -p 127.0.0.1:27017:27017 --name usersDB mongo && node ./seed/seed.js",
     "start": "node ./app.js",
     "seed": "node ./seed/seed.js",
     "test": "./node_modules/mocha/bin/mocha ./tests/accept/*.js --timeout 15000",
-    "local-test": "docker rm -f usersDB; docker run -d -p 127.0.0.1:27017:27017 --name usersDB mongo && node ./seed/seed.js && ./node_modules/mocha/bin/mocha ./tests/accept/*.js --timeout 15000",
-    "dev": "eslint --fix *.js;docker rm -f usersDB; docker run -d -p 127.0.0.1:27017:27017 --name usersDB mongo && node ./seed/seed.js && node ./app.js"
+    "local-test": "npm run clean-docker && npm run init-docker-mongo && ./node_modules/mocha/bin/mocha ./tests/accept/*.js --timeout 15000",
+    "dev": "eslint --fix *.js; npm run clean-docker && npm run init-docker-mongo && node ./app.js"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
