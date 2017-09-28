@@ -57,8 +57,10 @@ if (require.main === module) {
   // If require'd (e.g. in tests), let these tests establish a DB connection themselves
 
   if (process.env.DBUSER && process.env.DBPASSWORD) {
+    logger.info('USING MLAB');
     mongoose.connect('mongodb://' + process.env.DBUSER + ':' + process.env.DBPASSWORD + '@ds151544.mlab.com:51544/usersapi'); // For Heroku
   } else {
+    logger.info('USING LOCAL MONGO');
     mongoose.connect('mongodb://localhost/users'); // For running locally
   }
 
