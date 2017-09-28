@@ -5,6 +5,7 @@ var router = express.Router();
 var check = require('express-validator/check').check;
 var validationResult = require('express-validator/check').validationResult;
 
+// Utility function for string validation
 function stringsValidators(strings) {
   return strings.map(function(str) {
     return check(str).exists().trim().isLength({ min: 1 });
@@ -33,7 +34,7 @@ router.route('/')
 // POST /users
 // Create a new user
 .post(
-  stringsValidators(['gender','name.*','username','password','location.*'])
+  stringsValidators(['gender','name.*','username','password','location.*']) // Must be a string and exist
   .concat(check('email').isEmail().withMessage('must be an email'))
   , function(req, res) {
     var newUser = new User(req.body);
@@ -55,7 +56,7 @@ router.route('/')
         return res.status(404).end();
       }
 
-      res.json(user);
+      res.render('pages/createUser', { user: user });
     });
   });
 

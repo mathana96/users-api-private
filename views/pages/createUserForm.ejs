@@ -1,0 +1,55 @@
+<% include ../partials/header %>
+
+<section
+class="ui form raised black segment">
+<form action="/users" method="POST">
+  <div class="field">
+    <label>Gender</label> <input type="text"
+    name="gender"value="test-gender">
+  </div>
+  <h4 class="ui dividing header">Name</h4>
+  <div class="three fields">
+    <div class="field">
+      <label>Title</label> <input type="text" name="name[title]"value="sample-title">
+    </div>
+    <div class="field">
+      <label>First</label> <input type="text" name="name[first]"value="sample-first-name">
+    </div>
+    <div class="field">
+      <label>Last</label> <input 
+      type="text" name="name[last]"value="sample-last-name">
+    </div>
+  </div>
+  <h4 class="ui dividing header">Location</h4>
+  <div class="four fields">
+    <div class="field">
+      <label>Street</label> <input 
+      type="text" name="street"value="sample-street">
+    </div>
+    <div class="field">
+      <label>City</label> <input  type="text"
+      name="city"value="sample-city">
+    </div>
+    <div class="field">
+      <label>State</label> <input type="text"
+      name="state"value="">
+    </div>
+    <div class="field">
+      <label>Zip</label> <input type="text"
+      name="zip"value="sample-zip">
+    </div>
+  </div>
+  <div class="field">
+    <label>Email</label> <input type="text"
+    name="email"value="sample-email@email.sample">
+  </div>
+  <div class="field">
+    <label>Username</label> <input type="text"
+    name="username"value="sample-username">
+  </div>
+  <div class="field">
+    <label>Password</label> <input type="password" name="password" value="">
+  </div>
+  <button class="ui blue submit button">Submit</button>
+</form>
+</section>

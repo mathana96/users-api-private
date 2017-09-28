@@ -12,7 +12,7 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-app.set('port', (process.env.PORT || 8000));
+app.set('port', (process.env.PORT || 8000)); // Binding port
 
 // Add middleware
 app.use(cors());
@@ -24,11 +24,15 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
-app.get('/', function(req, res, err) { // eslint-disable-line no-unused-vars
+app.get('/', function(req, res) {
   return res.render('pages/index');
 });
 
-app.get('/docs', function(req, res, err) { // eslint-disable-line no-unused-vars
+app.get('/createUser', function(req, res) {
+  return res.render('pages/createUserForm');
+});
+
+app.get('/docs', function(req, res) {
   var md = function(filename) {
     var path = __dirname + "/" + filename;
     var include = fs.readFileSync(path, 'utf8');
@@ -42,7 +46,7 @@ app.get('/docs', function(req, res, err) { // eslint-disable-line no-unused-vars
   });
 });
 
-// See the User Controller for `/users` routes
+// See the User Controller for `/users` and `/testUsers` routes
 app.use('/users', userController);
 app.use('/testUsers', testUserController);
 
@@ -53,10 +57,9 @@ if (require.main === module) {
   // If require'd (e.g. in tests), let these tests establish a DB connection themselves
 
   if (process.env.DBUSER && process.env.DBPASSWORD) {
-    console.log('MLAB !!!!!');
-    mongoose.connect('mongodb://' + process.env.DBUSER + ':' + process.env.DBPASSWORD + '@ds151544.mlab.com:51544/usersapi');
+    mongoose.connect('mongodb://' + process.env.DBUSER + ':' + process.env.DBPASSWORD + '@ds151544.mlab.com:51544/usersapi'); // For Heroku
   } else {
-    mongoose.connect('mongodb://localhost/users');
+    mongoose.connect('mongodb://localhost/users'); // For running locally
   }
 
   // Only listen when app.js is run - acceptance tests will listen on another port
