@@ -1,14 +1,10 @@
-/**
-Controller used only for testing purposes. Seperate file as a quick (and messy) fix to over come having res.json() and res.render()
-for the same path. 
-**/
-
 var User = require('../models/user');
 var express = require('express');
 var ejs = require('ejs');
 var router = express.Router();
 var check = require('express-validator/check').check;
 var validationResult = require('express-validator/check').validationResult;
+var validateId = require('mongoose').Types.ObjectId.isValid;
 
 // Utility function for string validation
 function stringsValidators(strings) {
@@ -19,7 +15,7 @@ function stringsValidators(strings) {
 
 // Routes that end with /
 router.route('/')
-// GET /testUsers
+// GET /users
 // Get a list of users
 .get(function(req, res) {
   User.find({}, function(err, users) {
@@ -33,10 +29,10 @@ router.route('/')
       return res.status(404).end();    // Status code 404: Not Found
     }
 
-    res.json(users);
+    res.render('pages/listUsers', { users: users })
   });
 })
-// POST /testUsers
+// POST /users
 // Create a new user
 .post(
   stringsValidators(['gender','name.*','username','password','location.*']) // Must be a string and exist
@@ -60,16 +56,20 @@ router.route('/')
         return res.status(404).end();
       }
 
-      res.json(user);
+      res.render('pages/createUser', { user: user });
     });
   });
 
 
 // Routes that end with /:id  
 router.route('/:id')
-// GET /testUsers/:id
+// GET /users/:id
 // Get a user by ID
 .get(function(req, res) {
+  if(!validateId(req.params.id)) {
+    return res.status(422).end();
+  }
+  
   User.findOne({
     _id: req.params.id
   }, function(err, user) {
@@ -83,15 +83,16 @@ router.route('/:id')
       return res.status(404).end();
     }
 
-    res.json(user);
+    res.render('pages/getUser', { user: user });
+
   });
 })
-// PUT /testUsers/:id
+// PUT /users/:id
 // Update a user by ID
 .put(function(req, res) {
   User.findOneAndUpdate({
     _id: req.params.id
-  }, req.body, { new: true, runValidators: true, context: 'query' }, function(err, user) { 
+  }, req.body, { new: true, runValidators: true, context: 'query' }, function(err, user) {
     if (err) {
       return res.status(500).json({
         error: "Error updating user: " + err
@@ -102,10 +103,10 @@ router.route('/:id')
       return res.status(404).end();
     }
 
-    res.json(user);
+    res.render('pages/index');
   });
 })
-// DELETE /testUsers/:id
+// DELETE /users/:id
 // Delete a user by ID
 .delete(function(req, res) {
     User.remove({
@@ -121,9 +122,7 @@ router.route('/:id')
       return res.status(404).end();
     }
 
-    res.json({ 
-      message: "User successfully deleted"
-    });
+    res.render('pages/index');
   })
 
 });

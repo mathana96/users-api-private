@@ -1,4 +1,4 @@
-## RESTful Users API Documentation
+## RESTful API Documentation
 
 Below are the basic CRUDL functionalities of the RESTful API.
 
@@ -8,7 +8,7 @@ Returns a list of Users
 
 * **URL**
 
-  `/testUsers`
+  `/api/users`
 
 * **Method:**
 
@@ -16,11 +16,11 @@ Returns a list of Users
 
 *  **URL Params**
 
-  None
+   None
 
 * **Data Params**
 
-  None
+   None
 
 * **Success Response:**
 
@@ -96,18 +96,20 @@ Returns a list of Users
 
 * **Error Response:**
 
-* **Code:** 500 INTERNAL SERVER ERROR <br />
-  **Content:**
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:**
 
-  ```javascript
-  { "error": "Error listing users" }
-  ```
+    ```javascript
+    { "error": "Error listing users" }
+    ```
+  
+  * **Code:** 404 NOT FOUND <br />
 
 * **Sample Call:**
 
   ```javascript
   $.ajax({
-    url: "/testUsers",
+    url: "/api/users",
     dataType: "json",
     type : "GET",
     success : function(r) {
@@ -119,11 +121,11 @@ Returns a list of Users
 
 **Show User**
 ----
-  Returns JSON data about a single user.
+  Returns JSON data of a single user.
 
 * **URL**
 
-  `/testUsers/:id`
+  `/api/users/:id`
 
 * **Method:**
 
@@ -187,12 +189,14 @@ Returns a list of Users
     ```javascript
     { "error": "Error reading user" }
     ```
+  * **Code:** 404 NOT FOUND <br />
+  * **Code:** 422 UNPROCESSABLE ENTITY <br />
 
 * **Sample Call:**
 
   ```javascript
   $.ajax({
-    url: "/testUsers/1",
+    url: "/api/users/1",
     dataType: "json",
     type : "GET",
     success : function(r) {
@@ -206,15 +210,15 @@ Returns a list of Users
 
 * **URL**
 
-  `/testUsers`
+  `/api/users`
 
 * **Method:**
 
   `POST`
 
 *  **URL Params**
-
-  None
+  
+   None
 
 * **Data Params**
 
@@ -266,6 +270,13 @@ Returns a list of Users
 
 * **Error Response:**
 
+  * **Code:** 422 UNPROCESSABLE ENTITY <br />
+    **Content:**
+
+    ```javascript
+    { "errors": errors.mapped() }
+    ```
+
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:**
 
@@ -277,7 +288,7 @@ Returns a list of Users
 
   ```javascript
   $.ajax({
-    url: "/testUsers",
+    url: "/api/users",
     dataType: "json",
     type : "POST",
     success : function(r) {
@@ -292,7 +303,7 @@ Returns a list of Users
 
 * **URL**
 
-  `/testUser/:id`
+  `/api/users/:id`
 
 * **Method:**
 
@@ -301,7 +312,7 @@ Returns a list of Users
 *  **URL Params**
 
    `id=[string]`
-
+  
 * **Data Params**
 
  ```javascript
@@ -358,12 +369,12 @@ Returns a list of Users
     ```javascript
     { "error": "Error updating user" }
     ```
-
+  * **Code:** 404 NOT FOUND <br />
 * **Sample Call:**
 
   ```javascript
   $.ajax({
-    url: "/testUsers",
+    url: "/api/users",
     dataType: "json",
     type : "PUT",
     success : function(r) {
@@ -378,7 +389,7 @@ Returns a list of Users
 
 * **URL**
 
-  `/testUser/:id`
+  `/api/users/:id`
 
 * **Method:**
 
@@ -409,12 +420,13 @@ Returns a list of Users
     ```javascript
     { "error": "Error deleting user" }
     ```
+   * **Code:** 404 NOT FOUND <br />
 
 * **Sample Call:**
 
   ```javascript
   $.ajax({
-    url: "/testUsers",
+    url: "/api/users",
     dataType: "json",
     type : "DELETE",
     success : function(r) {

@@ -6,8 +6,8 @@ var path = require('path');
 var marked = require('marked');
 var fs = require('fs');
 var logger = require('winston');
-var userController = require('./controllers/users');
-var testUserController = require('./controllers/testUsers');
+var usersAPI = require('./controllers/usersAPI');
+var usersWeb = require('./controllers/usersWeb');
 var bodyParser = require('body-parser');
 
 var app = express();
@@ -47,8 +47,8 @@ app.get('/docs', function(req, res) {
 });
 
 // See the User Controller for `/users` and `/testUsers` routes
-app.use('/users', userController);
-app.use('/testUsers', testUserController);
+app.use('/users', usersWeb);
+app.use('/api/users', usersAPI);
 
 
 // Some switches for acceptance tests

@@ -1,37 +1,51 @@
 # RESTful Users API Documentation
 
-This sample project will give you a minimal users RESTful API to build your contact list template against. It only implements user listing and reading - feel free to add other actions (e.g. update, delete, create) as you see fit. It is built using JavaScript/Node.js (our language of choice), ExpressJS (a small, lightweight web MVC framework) & Mongoose (a MongoDB object modelling library).
+A very basic implementation of the Users REST API which serves as a proof of concept and opportunity to explore new technologies.
 
-## Pre-requisites
-
-To get started, you'll need to have the following requirements installed
-
-- Git
-- Node.js<sup>1</sup>
-- npm
-- MongoDB 2.6.x / 3.2.x<sup>2</sup>
-
-<sup>1</sup>See https://nodejs.org/
-
-<sup>2</sup>See https://docs.mongodb.com/manual/administration/install-community/ for installation guides
 
 ## Getting started
 	
-	# Ensure `mongod` is running, either as a service or in another shell
-	git clone <this repo>
-	npm install
-	npm run-script seed # Seed the DB with Users
-	npm start
-
+Ensure `Docker` is running before launching as it is used to run a `mongo` instance. The Community Edition of `Docker` can be found [here](https://www.docker.com/community-edition#/download).
+```
+  git clone <this repo>
+  npm install
+  npm run dev
+```
 ## Running tests
+  * For `Travis CI` as it is called automatically during build. 
 
-`npm test`
+    `npm test`
+  
+  * For local testing.
+
+    `npm run local-test`
 
 ## API documentation
 
-See [API.md](API.md) for details.
+There are two implementations of the API. 
+
+The first implementation uses `/api/users` and `api/users/:id` endpoints to implement the REST API and tests. See [API.md](API.md) for details.
+
+The second implementation uses the endpoints `/users` and `/users/:id` in an attempt to create a front-end to the API. This is a messy workaround to allow the endpoints to return JSON using `res.json()` and render a webpage using`res.render()`.
 
 ## SonarQube
-In addition to ESLint, we've also included some configuration for SonarQube in `sonar-project.properties`.
+SonarQube was used to analyse and evaluate the code. It was useful in identifying possible bugs, redundant variable declarations and `console.log()` statements which should not be part of production code. 
 
-See http://docs.sonarqube.org/display/SONAR/Get+Started+in+Two+Minutes for more details on how to setup SonarQube locally.
+Below is a screenshot of the SonarQube dashboard;
+
+![sonarqube](http://i67.tinypic.com/302ui55.png)
+
+## Travis CI and Heroku
+
+`Travis CI` was used to build the project each time a commit was pushed to GitHub. After each build, `Travis CI` automatically deploys to `Heroku`. The deployed app can be found [here](http://usersapi-private.herokuapp.com/). 
+
+Below is a screenshot of the build history on `Travis CI`;
+
+![sonarqube](http://i65.tinypic.com/5mzihc.png)
+
+## Issues
+
+  * Front-end is not fully functional.
+    * Not able to `UPDATE` and `DELETE` as forms on the front-end do not allow for `PUT` and `DELETE`. 
+  * Creating a user is not fully functional.
+    * `POST` requests from the front-end only update the outer key values of the user. Nested values are not updated. 
