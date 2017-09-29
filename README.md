@@ -24,7 +24,7 @@ Ensure `Docker` is running before launching as it is used to run a `mongo` insta
 
 There are two implementations of the API. 
 
-The first implementation uses `/api/users` and `api/users/:id` endpoints to implement the REST API and tests. See [API.md](API.md) for details.
+The first implementation uses `/api/users` and `/api/users/:id` endpoints to implement the REST API and tests. See [API.md](API.md) for details.
 
 The second implementation uses the endpoints `/users` and `/users/:id` in an attempt to create a front-end to the API. This is a messy workaround to allow the endpoints to return JSON using `res.json()` and render a webpage using`res.render()`.
 
